@@ -9,3 +9,10 @@ Quick Start
 Running the app:
 
     gradle bootRun
+
+Configure application.yaml:
+
+    cd src/main/java/com/pbo/resources
+    cp application.example.yaml application.yaml
+
+Make sure to change all necessary variables.
