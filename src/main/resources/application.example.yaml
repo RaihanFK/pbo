@@ -7,3 +7,6 @@ spring:
     url: jdbc:postgresql://localhost:PORT/DATABASE
     username: USERNAME
     password: PASSWORD
+  jpa:
+    hibernate:
+      ddl-auto: create
