@@ -27,4 +27,9 @@ public class BookController {
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
+
+    @GetMapping("/recomendation")
+    public List<Book> getTop10Books() {
+        return bookRepository.findTop10ByOrderByRatingtotalDesc();
+    }
 }
