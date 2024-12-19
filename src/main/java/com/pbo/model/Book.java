@@ -15,25 +15,28 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-    @Column(name = "title")
+    @Column(name = "title", columnDefinition = "TEXT")
     private String title;
 
-	@Column(name = "author")
+    @Column(name = "published", columnDefinition = "TEXT")
+    private String published;
+
+	@Column(name = "author", columnDefinition = "TEXT")
 	private String author;
 
-	@Column(name = "genre")
+	@Column(name = "genre", columnDefinition = "TEXT")
 	private String genre;
 
-    @Column(name = "format")
+    @Column(name = "format", columnDefinition = "TEXT")
     private String format;
 
-    @Column(name = "isbn")
+    @Column(name = "isbn", columnDefinition = "TEXT")
     private String isbn;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "book_image_url")
+    @Column(name = "book_image_url", columnDefinition = "TEXT")
     private String bookImageUrl;
 
     @Column(name = "rating_total")
@@ -46,10 +49,15 @@ public class Book {
 
     }
 
-    public Book(String author, String genre, String title) {
+    public Book(String title, String published, String author, String genre, String format, String isbn, String description) {
         this.author = author;
+        this.published = published;
         this.genre = genre;
         this.title = title;
+        this.format = format;
+        this.isbn = isbn;
+        this.description = description;
+        this.bookImageUrl = "-";
     }
 
     public long getId() {
@@ -66,6 +74,14 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPublished() {
+        return published;
+    }
+
+    public void setPublished(String published) {
+        this.published = published;
     }
 
     public String getAuthor() {
