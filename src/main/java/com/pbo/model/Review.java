@@ -9,28 +9,59 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "reviews")
-public class User {
+public class Review {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	@Column(name = "id_user")
-	private String idUser;
+    @Column(name = "id_user")
+    private String idUser;
 
-	@Column(name = "id_book")
-	private String idBook;
+    @Column(name = "id_book")
+    private String idBook;
 
     @Column(name = "review")
     private String review;
 
     public Review() {
-
     }
 
     public Review(String idUser, String idBook, String review) {
         this.idUser = idUser;
         this.idBook = idBook;
+        this.review = review;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getIdBook() {
+        return idBook;
+    }
+
+    public void setIdBook(String idBook) {
+        this.idBook = idBook;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
         this.review = review;
     }
 }
