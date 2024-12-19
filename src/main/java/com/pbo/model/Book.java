@@ -36,10 +36,10 @@ public class Book {
     @Column(name = "book_image_url")
     private String bookImageUrl;
 
-    @Column(name = "ratingtotal")
+    @Column(name = "rating_total")
     private int ratingTotal;
 
-    @Column(name = "ratingcount")
+    @Column(name = "rating_count")
     private int ratingCount;
 
     public Book() {
