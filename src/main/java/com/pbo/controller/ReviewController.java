@@ -34,20 +34,19 @@ public class ReviewController {
     }
 
     @PutMapping
-    public ResponseEntity<Review> updateReview(@RequestBody Review reviewDetails) {
-        Optional<Review> reviewOptional = reviewRepository.findById(reviewDetails.getId());
+    public ResponseEntity<Review> updateReview(@RequestBody Review review) {
+        Optional<Review> reviewOptional = reviewRepository.findById(review.getId());
         if (!reviewOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
 
         Review existingReview = reviewOptional.get();
-        existingReview.setReview(reviewDetails.getReview());
-        Review updatedReview = reviewRepository.save(existingReview);
-        return ResponseEntity.ok(updatedReview);
+        existingReview.setReview(review.getReview());
+        return ResponseEntity.ok(reviewRepository.save(existingReview));
     }
 
     @DeleteMapping
-    public ResponseEntity<?> deleteReview(@PathVariable Review review) {
+    public ResponseEntity<Review> deleteReview(@PathVariable Review review) {
         Optional<Review> reviewOptional = reviewRepository.findById(review.getId());
         if (!reviewOptional.isPresent()) {
             return ResponseEntity.notFound().build();
