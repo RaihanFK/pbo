@@ -1,12 +1,21 @@
 package com.pbo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import com.pbo.model.Review;
-import com.pbo.repository.ReviewRepository;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.pbo.model.Review;
+import com.pbo.repository.ReviewRepository;
 
 @RestController
 @RequestMapping("/api/books/{bookId}/review")
@@ -14,20 +23,17 @@ public class ReviewController {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    // POST: Add a new review for a book
     @PostMapping
     public Review addReview(@PathVariable String bookId, @RequestBody Review review) {
-        review.setIdBook(bookId); // Set the bookId for this review
+        review.setIdBook(bookId);
         return reviewRepository.save(review);
     }
 
-    // GET: Retrieve all reviews for a specific book
     @GetMapping
     public List<Review> getReviewsByBookId(@PathVariable String bookId) {
         return reviewRepository.findByIdBook(bookId);
     }
 
-    // PUT: Update a specific review for a book
     @PutMapping("/{reviewId}")
     public ResponseEntity<Review> updateReview(
             @PathVariable String bookId,
@@ -36,7 +42,7 @@ public class ReviewController {
         Optional<Review> reviewOptional = reviewRepository.findByIdAndIdBook(reviewId, bookId);
         if (reviewOptional.isPresent()) {
             Review existingReview = reviewOptional.get();
-            existingReview.setReview(reviewDetails.getReview()); // Update review text
+            existingReview.setReview(reviewDetails.getReview());
             Review updatedReview = reviewRepository.save(existingReview);
             return ResponseEntity.ok(updatedReview);
         } else {
@@ -44,7 +50,6 @@ public class ReviewController {
         }
     }
 
-    // DELETE: Delete a specific review for a book
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<?> deleteReview(@PathVariable String bookId, @PathVariable Long reviewId) {
         Optional<Review> reviewOptional = reviewRepository.findByIdAndIdBook(reviewId, bookId);

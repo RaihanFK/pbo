@@ -15,10 +15,10 @@ public class Rating {
 	private long id;
 
 	@Column(name = "user_id")
-	private String user_id;
+	private String userId;
 
 	@Column(name = "book_id")
-	private String book_id;
+	private String bookId;
 
     @Column(name = "rating")
     private Integer rating;
@@ -27,9 +27,9 @@ public class Rating {
 
     }
 
-    public Rating(String user_id, String book_id, Integer rating) {
-        this.user_id = user_id;
-        this.book_id = book_id;
+    public Rating(String userId, String bookId, Integer rating) {
+        this.userId = userId;
+        this.bookId = bookId;
         this.rating = rating;
     }
 }

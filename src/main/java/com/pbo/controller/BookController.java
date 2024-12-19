@@ -28,8 +28,8 @@ public class BookController {
         return bookRepository.findAll();
     }
 
-    @GetMapping("/recomendation")
+    @GetMapping("/recommendation")
     public List<Book> getTop10Books() {
-        return bookRepository.findTop10ByOrderByRatingtotalDesc();
+        return bookRepository.findTop10ByOrderByRatingTotalDesc();
     }
 }
