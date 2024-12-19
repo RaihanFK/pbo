@@ -46,7 +46,7 @@ public class ReviewController {
         return ResponseEntity.ok(updatedReview);
     }
 
-    @DeleteMapping()
+    @DeleteMapping
     public ResponseEntity<?> deleteReview(@PathVariable Review review) {
         Optional<Review> reviewOptional = reviewRepository.findById(review.getId());
         if (!reviewOptional.isPresent()) {
