@@ -8,6 +8,6 @@ import com.pbo.model.Book;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
 
-  public List<Book> findTop10ByOrderByRatingTotalDesc();
+    public List<Book> findTop10ByOrderByRatingTotalDesc();
 
 }
