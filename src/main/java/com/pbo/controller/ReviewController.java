@@ -23,17 +23,12 @@ public class ReviewController {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    @GetMapping()
-    public List<Review> getReviews() {
-        return reviewRepository.findAll();
-    }
-
     @PostMapping
     public Review addReview(@RequestBody Review review) {
         return reviewRepository.save(review);
     }
 
-    @GetMapping("/{bookId}")
+    @GetMapping()
     public List<Review> getReviewsByBookId(@PathVariable String bookId) {
         return reviewRepository.findByBookId(bookId);
     }
