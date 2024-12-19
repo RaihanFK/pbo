@@ -21,7 +21,7 @@ public class Rating {
 	private String bookId;
 
     @Column(name = "rating")
-    private Integer rating;
+    private Integer rating = 0;
 
     public Rating() {
 
