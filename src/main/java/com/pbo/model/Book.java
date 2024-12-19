@@ -15,17 +15,14 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+    @Column(name = "title")
+    private String title;
+
 	@Column(name = "author")
 	private String author;
 
 	@Column(name = "genre")
 	private String genre;
-
-	@Column(name = "title")
-	private String title;
-
-    @Column(name = "published")
-    private String published;
 
     @Column(name = "format")
     private String format;
@@ -40,26 +37,19 @@ public class Book {
     private String bookImageUrl;
 
     @Column(name = "ratingtotal")
-    private int ratingtotal;
+    private int ratingTotal;
 
     @Column(name = "ratingcount")
-    private int ratingcount;
+    private int ratingCount;
 
     public Book() {
 
     }
 
-    public Book(String author, String genre, String title, String published, String format, String isbn, String description, String bookImageUrl) {
+    public Book(String author, String genre, String title) {
         this.author = author;
         this.genre = genre;
         this.title = title;
-        // this.published = published;
-        // this.format = format;
-        // this.isbn = isbn;
-        // this.description = description;
-        // this.bookImageUrl = bookImageUrl;
-        this.ratingtotal = 0;
-        this.ratingcount = 0;
     }
 
     public long getId() {
@@ -79,7 +69,7 @@ public class Book {
     }
 
     public String getAuthor() {
-        return this.author;
+        return author;
     }
 
     public void setAuthor(String author) {
@@ -87,10 +77,59 @@ public class Book {
     }
 
     public String getGenre() {
-        return this.genre;
+        return genre;
     }
 
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getBookImageUrl() {
+        return bookImageUrl;
+    }
+
+    public void setBookImageUrl(String bookImageUrl) {
+        this.bookImageUrl = bookImageUrl;
+    }
+
+    public int getRatingTotal() {
+        return ratingTotal;
+    }
+
+    public void setRatingTotal(int ratingTotal) {
+        this.ratingTotal = ratingTotal;
+    }
+
+    public int getRatingCount() {
+        return ratingCount;
+    }
+
+    public void setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
+    }
+
 }
