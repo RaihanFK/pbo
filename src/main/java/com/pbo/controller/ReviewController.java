@@ -28,12 +28,12 @@ public class ReviewController {
         return reviewRepository.save(review);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<Review> getReviewsByBookId(@PathVariable String bookId) {
         return reviewRepository.findByBookId(bookId);
     }
 
-    @PutMapping()
+    @PutMapping
     public ResponseEntity<Review> updateReview(@RequestBody Review reviewDetails) {
         Optional<Review> reviewOptional = reviewRepository.findById(reviewDetails.getId());
         if (!reviewOptional.isPresent()) {
