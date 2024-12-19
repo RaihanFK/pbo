@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pbo.model.Book;
@@ -42,9 +44,19 @@ public class BookController {
 				.orElse(ResponseEntity.notFound().build()); // TODO(youkwhd): 404 notFound isn't quite right: https://developer.x.com/en/support/x-api/error-troubleshooting
     }
 
+    @GetMapping("/search")
+    public List<Book> searchBooks(@RequestParam String q) {
+        return bookRepository.findByTitleContainingIgnoreCase(q);
+    }
+
     @GetMapping("/recommendation")
     public List<Book> getTop10Books() {
         return bookRepository.findTop10ByOrderByRatingTotalDesc();
+    }
+
+    @GetMapping("/upcoming")
+    public List<Book> getUpcomingBooks() {
+        return bookRepository.findUpcomingBooks(LocalDate.now());
     }
 
     @GetMapping("/images/{filename}")
