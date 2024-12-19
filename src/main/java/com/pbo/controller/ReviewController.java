@@ -18,7 +18,7 @@ import com.pbo.model.Review;
 import com.pbo.repository.ReviewRepository;
 
 @RestController
-@RequestMapping("/api/reviews")
+@RequestMapping("/api/books/{bookId}/review")
 public class ReviewController {
     @Autowired
     private ReviewRepository reviewRepository;
