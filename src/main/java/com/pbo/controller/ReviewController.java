@@ -23,41 +23,42 @@ public class ReviewController {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @GetMapping()
+    public List<Review> getReviews() {
+        return reviewRepository.findAll();
+    }
+
     @PostMapping
-    public Review addReview(@PathVariable String bookId, @RequestBody Review review) {
-        review.setIdBook(bookId);
+    public Review addReview(@RequestBody Review review) {
         return reviewRepository.save(review);
     }
 
-    @GetMapping
+    @GetMapping("/{bookId}")
     public List<Review> getReviewsByBookId(@PathVariable String bookId) {
-        return reviewRepository.findByIdBook(bookId);
+        return reviewRepository.findByBookId(bookId);
     }
 
-    @PutMapping("/{reviewId}")
-    public ResponseEntity<Review> updateReview(
-            @PathVariable String bookId,
-            @PathVariable Long reviewId,
-            @RequestBody Review reviewDetails) {
-        Optional<Review> reviewOptional = reviewRepository.findByIdAndIdBook(reviewId, bookId);
-        if (reviewOptional.isPresent()) {
-            Review existingReview = reviewOptional.get();
-            existingReview.setReview(reviewDetails.getReview());
-            Review updatedReview = reviewRepository.save(existingReview);
-            return ResponseEntity.ok(updatedReview);
-        } else {
+    @PutMapping()
+    public ResponseEntity<Review> updateReview(@RequestBody Review reviewDetails) {
+        Optional<Review> reviewOptional = reviewRepository.findById(reviewDetails.getId());
+        if (!reviewOptional.isPresent()) {
             return ResponseEntity.notFound().build();
         }
+
+        Review existingReview = reviewOptional.get();
+        existingReview.setReview(reviewDetails.getReview());
+        Review updatedReview = reviewRepository.save(existingReview);
+        return ResponseEntity.ok(updatedReview);
     }
 
-    @DeleteMapping("/{reviewId}")
-    public ResponseEntity<?> deleteReview(@PathVariable String bookId, @PathVariable Long reviewId) {
-        Optional<Review> reviewOptional = reviewRepository.findByIdAndIdBook(reviewId, bookId);
-        if (reviewOptional.isPresent()) {
-            reviewRepository.delete(reviewOptional.get());
-            return ResponseEntity.noContent().build();
-        } else {
+    @DeleteMapping()
+    public ResponseEntity<?> deleteReview(@PathVariable Review review) {
+        Optional<Review> reviewOptional = reviewRepository.findById(review.getId());
+        if (!reviewOptional.isPresent()) {
             return ResponseEntity.notFound().build();
-        }
+        } 
+
+        reviewRepository.delete(reviewOptional.get());
+        return ResponseEntity.noContent().build();
     }
 }

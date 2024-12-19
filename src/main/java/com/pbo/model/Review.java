@@ -15,11 +15,11 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	@Column(name = "id_user")
-	private String idUser;
+	@Column(name = "user_id")
+	private String userId;
 
-	@Column(name = "id_book")
-	private String idBook;
+	@Column(name = "book_id")
+	private String bookId;
 
     @Column(name = "review")
     private String review;
@@ -28,9 +28,9 @@ public class Review {
 
     }
 
-    public Review(String idUser, String idBook, String review) {
-        this.idUser = idUser;
-        this.idBook = idBook;
+    public Review(String userId, String bookId, String review) {
+        this.userId = userId;
+        this.bookId = bookId;
         this.review = review;
     }
 
@@ -42,20 +42,20 @@ public class Review {
         this.id = id;
     }
 
-    public String getIdUser() {
-        return idUser;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getIdBook() {
-        return idBook;
+    public String getBookId() {
+        return bookId;
     }
 
-    public void setIdBook(String idBook) {
-        this.idBook = idBook;
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
     }
 
     public String getReview() {
