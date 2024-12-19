@@ -11,20 +11,21 @@ import jakarta.persistence.Table;
 @Table(name = "reviews")
 public class Review {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
-    @Column(name = "id_user")
-    private String idUser;
+	@Column(name = "id_user")
+	private String idUser;
 
-    @Column(name = "id_book")
-    private String idBook;
+	@Column(name = "id_book")
+	private String idBook;
 
     @Column(name = "review")
     private String review;
 
     public Review() {
+
     }
 
     public Review(String idUser, String idBook, String review) {
