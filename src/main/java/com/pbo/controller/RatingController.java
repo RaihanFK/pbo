@@ -13,7 +13,7 @@ import com.pbo.model.Rating;
 import com.pbo.repository.RatingRepository;
 
 @RestController
-@RequestMapping("/api/rating")
+@RequestMapping("/api/ratings")
 
 public class RatingController {
     @Autowired
