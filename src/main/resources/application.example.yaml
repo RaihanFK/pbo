@@ -10,3 +10,5 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+
+upload.folder: YOUR_PATH/TO/UPLOAD/FOLDER/assets/books
