@@ -20,6 +20,7 @@ import com.pbo.repository.ReviewRepository;
 @RestController
 @RequestMapping("/api/books/{bookId}/review")
 public class ReviewController {
+
     @Autowired
     private ReviewRepository reviewRepository;
 
@@ -30,7 +31,7 @@ public class ReviewController {
 
     @GetMapping
     public List<Review> getReviewsByBookId(@PathVariable String bookId) {
-        return reviewRepository.findByBookId(bookId);
+        return reviewRepository.findAllByBookId(bookId);
     }
 
     @PutMapping

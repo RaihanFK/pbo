@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "ratings")
 public class Rating {
+
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;

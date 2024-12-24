@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.pbo.model.Review;
 
-public interface ReviewRepository extends JpaRepository<Review, Long>{
+public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    List<Review> findByBookId(String bookId);
+    public List<Review> findAllByBookId(String bookId);
 
-    Optional<Review> findByIdAndBookId(Long id, String bookId);
+    public Optional<Review> findByIdAndBookId(Long id, String bookId);
 }

@@ -18,7 +18,7 @@ import com.pbo.repository.AuthenticationRepository;
 @RestController
 @RequestMapping("/api/authentications")
 public class AuthenticationController {
-	
+
 	@Autowired
 	private AuthenticationRepository authenticationRepository;
 	

@@ -24,6 +24,7 @@ import com.pbo.repository.BookRepository;
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
+
     @Autowired
     private BookRepository bookRepository;
 

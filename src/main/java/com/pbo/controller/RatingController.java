@@ -3,7 +3,9 @@ package com.pbo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +15,9 @@ import com.pbo.model.Rating;
 import com.pbo.repository.RatingRepository;
 
 @RestController
-@RequestMapping("/api/ratings")
-
+@RequestMapping("/api/books/{bookId}/rating")
 public class RatingController {
+
     @Autowired
     private RatingRepository ratingRepository;
 
@@ -25,7 +27,7 @@ public class RatingController {
     }
 
     @GetMapping
-    public List<Rating> getAllRatings() {
-        return ratingRepository.findAll();
+    public List<Rating> getAllRatings(@PathVariable String bookId) {
+        return ratingRepository.findAllByBookId(bookId);
     }
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "authentications")
 public class Authentication {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
