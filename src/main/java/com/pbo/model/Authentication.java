@@ -1,9 +1,12 @@
 package com.pbo.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import com.pbo.util.IdGenerator;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -12,8 +15,9 @@ import jakarta.persistence.Table;
 public class Authentication {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @GeneratedValue(generator = IdGenerator.GENERATOR_NAME)
+    @GenericGenerator(name = IdGenerator.GENERATOR_NAME, strategy = "com.pbo.util.IdGenerator")
+	private String id;
 	
 	@Column(name = "token", nullable = false)
 	private String token;
@@ -25,11 +29,11 @@ public class Authentication {
 		this.token = token;
 	}
 	
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 	
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	

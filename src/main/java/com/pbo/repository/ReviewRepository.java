@@ -8,7 +8,9 @@ import com.pbo.model.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
+    public Optional<Review> findById(String id);
+
     public List<Review> findAllByBookId(String bookId);
 
-    public Optional<Review> findByIdAndBookId(Long id, String bookId);
+    public Optional<Review> findByIdAndBookId(String id, String bookId);
 }
