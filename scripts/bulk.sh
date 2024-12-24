@@ -16,3 +16,16 @@ do
         -d "${DUMMIES[$i]}" \
         http://localhost:3000/api/books &
 done
+
+declare -a DUMMIES=(
+    "{\"username\": \"echidna\", \"displayName\": \"echidna\", \"password\": \"echidna\", \"email\": \"echidna@bookrevu.com\"}"
+    "{\"username\": \"admin\", \"displayName\": \"admin\", \"password\": \"admin\", \"email\": \"admin@bookrevu.com\"}"
+)
+
+for (( i=0; i<${#DUMMIES[@]}; i++ ));
+do
+    curl -H "Content-Type: application/json" \
+        -X POST \
+        -d "${DUMMIES[$i]}" \
+        http://localhost:3000/api/users
+done
