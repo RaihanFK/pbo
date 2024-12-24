@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.pbo.model.User;
 import com.pbo.repository.UserRepository;
@@ -21,6 +22,8 @@ public class UserController {
 
     @PostMapping
     public User createUser(@RequestBody User user) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setRole("user");
         return userRepository.save(user);
     }
 

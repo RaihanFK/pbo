@@ -12,12 +12,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.algorithms.Algorithm;
+
 import com.pbo.model.Authentication;
+import com.pbo.model.User;
 import com.pbo.repository.AuthenticationRepository;
+import com.pbo.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/authentications")
 public class AuthenticationController {
+
+    @Autowired
+    private UserRepository userRepository;
 
 	@Autowired
 	private AuthenticationRepository authenticationRepository;
@@ -28,8 +37,21 @@ public class AuthenticationController {
 	}
 	
 	@PostMapping
-	public Authentication createAuthentication(@RequestBody Authentication authentication) {
-		return authenticationRepository.save(authentication);
+	public Authentication createAuthentication(@RequestBody User user) {
+        user = userRepository.findById(user.getId()).orElse(null);
+        if (user == null) return null;
+
+        String token = JWT.create()
+            .withClaim("id", user.getId())
+            .withClaim("email", user.getEmail())
+            .withClaim("displayname", user.getDisplayName())
+            .withClaim("role", user.getRole())
+            .sign(Algorithm.HMAC256("@TODO-ACTUAL-SECRET"));
+
+        // NOTE(decoding):
+        // DecodedJWT decoded = JWT.require(Algorithm.HMAC256("@TODO-ACTUAL-SECRET")).build().verify(token);
+
+		return authenticationRepository.save(new Authentication(token));
 	}
 	
 	@GetMapping("/{id}")
