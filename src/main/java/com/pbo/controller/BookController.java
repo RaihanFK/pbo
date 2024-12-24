@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pbo.model.Book;
 import com.pbo.repository.BookRepository;
+import com.pbo.services.StorageService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @RestController
 @RequestMapping("/api/books")
@@ -27,6 +32,8 @@ public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
+    @Autowired
+    private StorageService storageService;
 
     @PostMapping
     public Book createBook(@RequestBody Book book) {
@@ -39,7 +46,7 @@ public class BookController {
     }
     
     @GetMapping("/{bookId}")
-    public ResponseEntity<Book> getBookById(@PathVariable Long bookId) {
+    public ResponseEntity<Book> getBookById(@PathVariable String bookId) {
         return bookRepository.findById(bookId)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build()); // TODO(youkwhd): 404 notFound isn't quite right: https://developer.x.com/en/support/x-api/error-troubleshooting
@@ -73,5 +80,18 @@ public class BookController {
         } catch (IOException e) {
             return ResponseEntity.status(404).body(null);
         }
+    }
+
+    @PostMapping("/{id}/cover")
+    public ResponseEntity<?> postBookCover(@PathVariable String id, @RequestParam MultipartFile cover) throws IOException {
+        storageService.validateCoverHeader(cover);
+        Book book = bookRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Book not found with id: " + id));
+        String filename = storageService.writeFile(cover);
+        String url = "http://localhost:5000/api/books/images/" + filename;
+        book.setBookImageUrl(url);
+        bookRepository.save(book);
+
+        return new ResponseEntity<>(url, HttpStatus.OK);
     }
 }
