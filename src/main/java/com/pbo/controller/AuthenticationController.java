@@ -31,7 +31,7 @@ public class AuthenticationController {
 	private AuthenticationRepository authenticationRepository;
 
     @Value("${jwt.secret}")
-    private String jwtSecret;
+    private String JWT_SECRET;
 	
 	@GetMapping
 	public List<Authentication> getAllAuthentications() {
@@ -48,10 +48,7 @@ public class AuthenticationController {
             .withClaim("email", user.getEmail())
             .withClaim("displayname", user.getDisplayName())
             .withClaim("role", user.getRole())
-            .sign(Algorithm.HMAC256(jwtSecret));
-
-        // NOTE(decoding):
-        // DecodedJWT decoded = JWT.require(Algorithm.HMAC256(jwtSecret)).build().verify(token);
+            .sign(Algorithm.HMAC256(JWT_SECRET));
 
 		return authenticationRepository.save(new Authentication(token));
 	}
