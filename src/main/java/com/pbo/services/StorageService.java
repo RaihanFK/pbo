@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-@Service  // <-- Add this annotation
+@Service 
 public class StorageService {
 
     @Value("${upload.folder}")
@@ -20,11 +20,11 @@ public class StorageService {
     @PostConstruct
     public void init() {
         try {
-            System.out.println("Configured folder: " + folder); // Log the folder path
+            System.out.println("Configured folder: " + folder);
             Path path = Paths.get(folder).toAbsolutePath();
             if (Files.notExists(path)) {
                 System.out.println("Folder doesn't exist, creating it...");
-                Files.createDirectories(path); // Create the folder if it doesn't exist
+                Files.createDirectories(path); 
             }
         } catch (Exception e) {
             e.printStackTrace();
