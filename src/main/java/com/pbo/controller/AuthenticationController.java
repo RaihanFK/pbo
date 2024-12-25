@@ -3,6 +3,7 @@ package com.pbo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.algorithms.Algorithm;
-
 import com.pbo.model.Authentication;
 import com.pbo.model.User;
 import com.pbo.repository.AuthenticationRepository;
@@ -30,6 +29,9 @@ public class AuthenticationController {
 
 	@Autowired
 	private AuthenticationRepository authenticationRepository;
+
+    @Value("${jwt.secret}")
+    private String jwtSecret;
 	
 	@GetMapping
 	public List<Authentication> getAllAuthentications() {
@@ -46,10 +48,10 @@ public class AuthenticationController {
             .withClaim("email", user.getEmail())
             .withClaim("displayname", user.getDisplayName())
             .withClaim("role", user.getRole())
-            .sign(Algorithm.HMAC256("@TODO-ACTUAL-SECRET"));
+            .sign(Algorithm.HMAC256(jwtSecret));
 
         // NOTE(decoding):
-        // DecodedJWT decoded = JWT.require(Algorithm.HMAC256("@TODO-ACTUAL-SECRET")).build().verify(token);
+        // DecodedJWT decoded = JWT.require(Algorithm.HMAC256(jwtSecret)).build().verify(token);
 
 		return authenticationRepository.save(new Authentication(token));
 	}

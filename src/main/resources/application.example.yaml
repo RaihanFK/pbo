@@ -12,3 +12,4 @@ spring:
       ddl-auto: create
 
 upload.folder: YOUR_PATH/TO/UPLOAD/FOLDER/assets/books
+jwt.secret: YOUR_JWT_SECRET_FOR_GENERATING_TOKENS
