@@ -23,6 +23,8 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.GET, "*").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/authentications").permitAll()
+                    .requestMatchers(HttpMethod.GET, "api/books/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .anyRequest().authenticated())
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
 
