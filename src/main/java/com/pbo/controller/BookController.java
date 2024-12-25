@@ -70,7 +70,7 @@ public class BookController {
     @GetMapping("/images/{filename}")
     public ResponseEntity<byte[]> getImage(@PathVariable String filename) {
         try {
-            Path path = Paths.get("assets/books", filename);
+            Path path = Paths.get(storageService.getStorageFolderPath(), filename);
             byte[] imageBytes = Files.readAllBytes(path);
             String contentType = Files.probeContentType(path);
 
