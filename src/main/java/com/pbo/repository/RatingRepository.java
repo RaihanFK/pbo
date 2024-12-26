@@ -10,5 +10,5 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
 
     public List<Rating> findAllByBookId(String bookId);
 
-    public void deleteByUserIdAndBookId(String userId, String bookId);
+    public Rating findByUserIdAndBookId(String userId, String bookId);
 }
