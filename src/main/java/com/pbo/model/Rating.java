@@ -37,4 +37,16 @@ public class Rating {
         this.bookId = bookId;
         this.rating = rating;
     }
+
+    public void setBookId(String bookId) {
+	this.bookId = bookId;
+    }
+
+    public void setUserId(String userId) {
+	this.userId = userId;
+    }
+
+    public Integer getRating() {
+	return rating;
+    }
 }
