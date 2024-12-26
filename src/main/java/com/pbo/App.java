@@ -1,5 +1,8 @@
 package com.pbo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class App {
 
     @GetMapping()
-    private String home() {
-        return "Hello from Java && Spring!";
+    private Map<String, Object> home() {
+        HashMap<String, Object> hmap = new HashMap();
+        hmap.put("message", "Hello from Java && Spring!");
+        return hmap;
     }
 
     public static void main(String[] args) {
